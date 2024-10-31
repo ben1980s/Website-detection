@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Website Monitor</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+        .website {
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .status-ok {
+            background-color: lightgreen;
+        }
+        .status-warning {
+            background-color: #ffd966;
+        }
+        .status-error {
+            background-color: #ffcccc;
+        }
+        .status {
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        .time {
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <h1>Website Status Monitor</h1>
+
+    {{range .WebsiteStatuses}}
+    <div class="website">
+        <p><span class="status {{statusClass .Status}}">Status: {{.Status}} - {{.StatusMessage}}</span> Last checked: <span class="time">{{.LastChecked}}</span></p>
+        <p>URL: <a href="{{.URL}}" target="_blank">{{.URL}}</a></p>
+        <p>Response time: <span class="time">{{.ResponseTime}}</span></p>
+
+        <h3>History:</h3>
+        <ul>
+            {{range .HistoryStatuses}}
+            <li><span class="status">{{.Status}} - {{.StatusMessage}}</span> Checked at: <span class="time">{{.CheckedTime}}</span> Response time: <span class="time">{{.ResponseTime}}</span></li>
+            {{end}}
+        </ul>
+    </div>
+    {{end}}
+
+</body>
+</html>
